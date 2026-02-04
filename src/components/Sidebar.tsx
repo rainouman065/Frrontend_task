@@ -95,6 +95,7 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  // First parent tab (section with children) is open by default
   const [openSection, setOpenSection] = useState<string | null>("Articles");
 
   return (
@@ -137,8 +138,8 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
         <nav className="flex-1 overflow-y-auto px-2 py-3 text-sm">
           {menuSections.map((section) => {
-            const isArticles = section.label === "Articles";
-            const isSectionOpen = !isArticles || openSection === section.label;
+            const hasItems = section.items.length > 0;
+            const isSectionOpen = hasItems ? openSection === section.label : true;
             const sectionRoute = sectionRoutes[section.label];
             const sectionIsActive =
               !!sectionRoute && location.pathname === sectionRoute;
@@ -151,7 +152,8 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
                     sectionIsActive ? "text-gray-900" : "text-gray-400"
                   }`}
                   onClick={() => {
-                    if (isArticles) {
+                    if (hasItems) {
+                      // Accordion behavior: only one parent tab open at a time
                       setOpenSection((current) =>
                         current === section.label ? null : section.label
                       );
@@ -162,7 +164,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
                   }}
                 >
                   <span>{section.label}</span>
-                  {isArticles && (
+                  {hasItems && (
                     <span
                       className={`text-[10px] transition-transform ${
                         isSectionOpen ? "rotate-0" : "-rotate-90"
