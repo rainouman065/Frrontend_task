@@ -1,4 +1,4 @@
-// src/components/DashboardLayout.tsx
+
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
@@ -12,7 +12,7 @@ const DashboardLayout: FC<Props> = ({ children }) => {
 
   return (
     <div className="flex min-h-screen bg-gray-100 flex-col md:flex-row">
-    
+      {/* Mobile top bar with menu button */}
       <header className="flex items-center justify-between px-4 py-3 border-b bg-white md:hidden">
         <button
           type="button"
