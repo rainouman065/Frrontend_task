@@ -18,7 +18,9 @@ const sizeClasses: Record<Size, string> = {
 };
 
 const variantClasses: Record<Variant, string> = {
-  default: "bg-blue-600 text-white hover:bg-blue-700",
+  // All primary buttons use the same main brand color
+  default:
+    "bg-[var(--primary-color)] text-white hover:bg-[var(--primary-color-hover)]",
   ghost: "bg-transparent hover:bg-gray-100 text-gray-800",
   outline:
     "border border-gray-300 bg-white text-gray-800 hover:bg-gray-50 hover:border-gray-400",
