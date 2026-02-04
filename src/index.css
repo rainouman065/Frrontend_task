@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Primary brand color – change once here (e.g. blue or green) */
+  --primary-color: #2563eb; /* blue-600 */
+  --primary-color-hover: #1d4ed8; /* blue-700 */
+}
+
+.swal2-confirm {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.swal2-confirm:hover {
+  background-color: var(--primary-color-hover) !important;
+  border-color: var(--primary-color-hover) !important;
+}

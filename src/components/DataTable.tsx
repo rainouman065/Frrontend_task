@@ -215,7 +215,6 @@ const DataTable: FC<DataTableProps> = ({ search, activeTab, loading }) => {
       `,
       icon: "info",
       confirmButtonText: "Close",
-      confirmButtonColor: "#2563eb",
     });
   };
 
@@ -226,7 +225,6 @@ const DataTable: FC<DataTableProps> = ({ search, activeTab, loading }) => {
         text: "Select one or more rows first to bulk publish.",
         icon: "warning",
         confirmButtonText: "Ok",
-        confirmButtonColor: "#f97316",
       });
       return;
     }
@@ -240,7 +238,6 @@ const DataTable: FC<DataTableProps> = ({ search, activeTab, loading }) => {
       showCancelButton: true,
       confirmButtonText: "Yes, publish",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#16a34a",
     }).then((result) => {
       if (result.isConfirmed) {
         void Swal.fire({
@@ -248,7 +245,6 @@ const DataTable: FC<DataTableProps> = ({ search, activeTab, loading }) => {
           text: "The selected articles have been added to your publishing queue.",
           icon: "success",
           confirmButtonText: "Great",
-          confirmButtonColor: "#16a34a",
         }).then(() => {
     
           setSelectedIds([]);
@@ -265,7 +261,6 @@ const DataTable: FC<DataTableProps> = ({ search, activeTab, loading }) => {
       showCancelButton: true,
       confirmButtonText: "Yes, publish",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#16a34a",
     }).then((result) => {
       if (result.isConfirmed) {
         void Swal.fire({
@@ -273,7 +268,6 @@ const DataTable: FC<DataTableProps> = ({ search, activeTab, loading }) => {
           text: `"${row.title}" has been added to your WordPress publishing queue.`,
           icon: "success",
           confirmButtonText: "Great",
-          confirmButtonColor: "#16a34a",
         }).then(() => {
           
           setSelectedIds((prev) => prev.filter((id) => id !== row.id));

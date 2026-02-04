@@ -10,7 +10,6 @@ const AlertDialog: FC = () => {
       text: "This is a simple informational alert powered by SweetAlert2.",
       icon: "info",
       confirmButtonText: "Got it",
-      confirmButtonColor: "#2563eb",
     });
   };
 
@@ -22,7 +21,6 @@ const AlertDialog: FC = () => {
       showCancelButton: true,
       confirmButtonText: "Yes, publish",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#16a34a",
     }).then((result) => {
       if (result.isConfirmed) {
         void Swal.fire({
@@ -30,7 +28,6 @@ const AlertDialog: FC = () => {
           text: "Your articles have been queued for publishing.",
           icon: "success",
           confirmButtonText: "Nice",
-          confirmButtonColor: "#16a34a",
         });
       }
     });
@@ -44,7 +41,6 @@ const AlertDialog: FC = () => {
       showCancelButton: true,
       confirmButtonText: "Archive",
       cancelButtonText: "Keep it",
-      confirmButtonColor: "#f97316",
     });
   };
 

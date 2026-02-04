@@ -1,4 +1,4 @@
-// src/pages/Dashboard.tsx
+
 import { useEffect, useState } from "react";
 import DashboardLayout from "../DashboardLayout";
 import Header from "../Header";
