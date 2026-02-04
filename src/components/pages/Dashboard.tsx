@@ -1,4 +1,4 @@
-
+// src/pages/Dashboard.tsx
 import { useEffect, useState } from "react";
 import DashboardLayout from "../DashboardLayout";
 import Header from "../Header";
@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate initial data fetch for the dashboard
+
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
