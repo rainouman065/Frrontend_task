@@ -153,7 +153,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
                   }`}
                   onClick={() => {
                     if (hasItems) {
-                      // Accordion behavior: only one parent tab open at a time
+                
                       setOpenSection((current) =>
                         current === section.label ? null : section.label
                       );
