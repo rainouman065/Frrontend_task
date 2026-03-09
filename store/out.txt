@@ -1,0 +1,87 @@
+﻿
+D:\copy store\store\src\components\AddProductForm.jsx
+  31:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  29 |   useEffect(() => {
+  30 |     if (categories.length > 0 && !categoryId) {
+> 31 |       setCategoryId(String(categories[0].id));
+     |       ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  32 |     }
+  33 |   }, [categories, categoryId]);
+  34 |  react-hooks/set-state-in-effect
+  37:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  35 |   useEffect(() => {
+  36 |     if (isCategoriesError && !error) {
+> 37 |       setError('Failed to load categories');
+     |       ^^^^^^^^ Avoid calling setState() directly within an effect
+  38 |     }
+  39 |   }, [isCategoriesError, error]);
+  40 |                react-hooks/set-state-in-effect
+
+D:\copy store\store\src\context\AuthContext.jsx
+  15:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  13 |
+  14 |     if (!token) {
+> 15 |       setUser(null);
+     |       ^^^^^^^ Avoid calling setState() directly within an effect
+  16 |       setLoading(false);
+  17 |       return;
+  18 |     }  react-hooks/set-state-in-effect
+  67:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-refresh/only-export-components
+
+D:\copy store\store\src\context\DataContext.jsx
+  48:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+D:\copy store\store\src\pages\ProductDetail.jsx
+  1:27  error  'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+D:\copy store\store\src\pages\Products.jsx
+  85:28  error    Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `localMatchesFilters`, but the source dependencies were [fetchedProducts, myProducts, productOverrides, deletedProductIds, appliedTitle, appliedCategory, appliedMinPrice, appliedMaxPrice]. Inferred different dependency than source.
+
+  83 |   });
+  84 |
+> 85 |   const products = useMemo(() => {
+     |                            ^^^^^^^
+> 86 |     const deletedIds = deletedProductIds.map(String);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 87 |     const apiList = fetchedProducts
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 95 |     return hasFilters ? merged : merged; // apply filters on API data already filtered if needed
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 96 |   }, [fetchedProducts, myProducts, productOverrides, deletedProductIds, appliedTitle, appliedCategory, appliedMinPrice, appliedMaxPrice]);
+     | ^^^^ Could not preserve existing manual memoization
+  97 |
+  98 |   const hasMore = !hasFilters && fetchedProducts.length === PAGE_SIZE;
+  99 |   const error = queryError?.message;  react-hooks/preserve-manual-memoization
+  96:6   warning  React Hook useMemo has missing dependencies: 'hasFilters' and 'localMatchesFilters'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/exhaustive-deps
+
+D:\copy store\store\src\pages\Users.jsx
+  16:5   error  'setDeletedUserIds' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  21:10  error  'error' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u              no-unused-vars
+  21:17  error  'setError' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u           no-unused-vars
+
+Γ£û 11 problems (10 errors, 1 warning)
+
