@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased text-slate-900 bg-slate-50;
+  }
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full hover:bg-primary-600 transition-colors duration-300;
+}
+
+/* Table Management Sticky Shadow */
+.sticky-action-shadow {
+  @apply shadow-[-20px_0_30px_-15px_rgba(30,41,59,0.05)];
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  @apply bg-white/80 backdrop-blur-md border border-slate-200/50 shadow-xl shadow-slate-200/50;
+}
+
+.glass-header {
+  @apply bg-white/70 backdrop-blur-lg border-b border-slate-100;
+}
+
+/* Animations */
+@keyframes elegantIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-elegant {
+  animation: elegantIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Gradients */
+.bg-mesh {
+  background-image:
+    radial-gradient(at 0% 0%, hsla(226, 70%, 88%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(221, 83%, 53%, 0.08) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(262, 83%, 58%, 0.1) 0, transparent 50%);
+}
+
+.text-gradient-primary {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-700 to-primary-500;
+}
+
+/* Interactive Elements */
+.hover-card {
+  @apply transition-all duration-500 hover:shadow-2xl hover:shadow-primary-500/5 hover:-translate-y-1;
+}
+
+.focus-ring {
+  @apply focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500/50 outline-none transition-all;
+}
+
+/* SweetAlert2 Premium Overrides */
+.swal2-popup {
+  border-radius: 1.5rem !important;
+  padding: 1.5rem !important;
+  width: 36rem !important;
+  max-width: 90vw !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.1) !important;
+  border: 1px solid #f1f5f9 !important;
+}
+
+.swal2-title {
+  font-size: 1.125rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #0f172a !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.swal2-html-container {
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #475569 !important;
+  margin-bottom: 1.25rem !important;
+  line-height: 1.5 !important;
+}
+
+.swal2-confirm,
+.swal2-cancel {
+  border-radius: 0.75rem !important;
+  padding: 0.875rem 1.75rem !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.swal2-confirm {
+  background-color: #4f46e5 !important;
+  /* primary-600 */
+  color: #ffffff !important;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2), 0 2px 4px -2px rgba(79, 70, 229, 0.1) !important;
+}
+
+.swal2-confirm:hover {
+  background-color: #4338ca !important;
+  /* primary-700 */
+  transform: translateY(-1px) !important;
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3), 0 4px 6px -4px rgba(79, 70, 229, 0.2) !important;
+}
+
+.swal2-cancel {
+  background-color: #f8fafc !important;
+  /* Slate-50 */
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.swal2-cancel:hover {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+}
+
+.swal2-actions {
+  gap: 0.75rem !important;
+}
+
+.swal2-icon {
+  margin-top: 0 !important;
+  margin-bottom: 0.75rem !important;
+  border-width: 2px !important;
+}
