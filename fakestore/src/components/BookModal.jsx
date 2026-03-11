@@ -39,7 +39,7 @@ const BookModal = ({ isOpen, onClose, onSubmit, book, isEdit, isLoading }) => {
                                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                 />
                             </div>
-                            
+
                             <div className="group">
                                 <label className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1.5 block px-0.5 group-focus-within:text-primary-600 transition-colors">Narrative Summary</label>
                                 <textarea
@@ -90,7 +90,7 @@ const BookModal = ({ isOpen, onClose, onSubmit, book, isEdit, isLoading }) => {
                                 disabled={isLoading}
                                 className="flex-1 py-3 px-4 bg-slate-50 text-slate-500 rounded-lg font-black uppercase tracking-widest text-[9px] hover:bg-slate-100 transition-all disabled:opacity-50"
                             >
-                                Dismiss
+                                Cancel
                             </button>
                             <button
                                 type="submit"
@@ -98,7 +98,7 @@ const BookModal = ({ isOpen, onClose, onSubmit, book, isEdit, isLoading }) => {
                                 className="flex-[2] py-4 px-6 bg-primary-600 text-white rounded-lg font-black uppercase tracking-widest text-[9px] shadow-sm shadow-primary-600/20 hover:bg-primary-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
                             >
                                 {isLoading ? <Loader2 className="animate-spin" size={14} /> : <Save size={14} />}
-                                {isEdit ? 'Push' : 'Publish'}
+                                {isEdit ? 'update' : 'Add'}
                             </button>
                         </div>
                     </form>

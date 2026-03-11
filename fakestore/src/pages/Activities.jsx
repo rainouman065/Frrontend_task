@@ -1,12 +1,12 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchActivities } from '../api';
+import { request } from '../api/api';
 import { Activity, Clock, Loader2, AlertCircle, CircleCheck, CircleDashed } from 'lucide-react';
 
 const Activities = () => {
     const { data: activities, isLoading, isError, error } = useQuery({
         queryKey: ['activities'],
-        queryFn: fetchActivities,
+        queryFn: () => request({ url: '/Activities', method: 'GET' }),
     });
 
     if (isLoading) {
@@ -31,7 +31,7 @@ const Activities = () => {
     return (
         <div className="max-w-4xl mx-auto space-y-8 mb-20">
             {/* Sticky Header Section */}
-            <div className="sticky top-[104px] z-[30] glass-header py-6 px-4 -mx-4 flex items-center justify-between transition-all duration-300">
+            <div className="sticky top-[104px] z-[30] bg-slate-50/90 backdrop-blur-md py-6 px-4 -mx-4 flex items-center justify-between transition-all duration-300">
                 <div className="flex items-center gap-4">
                     <div className="p-3 bg-primary-600 rounded-[1.2rem] text-white shadow-xl shadow-primary-600/20">
                         <Activity size={24} />

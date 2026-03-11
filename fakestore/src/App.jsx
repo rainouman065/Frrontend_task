@@ -9,7 +9,6 @@ import Authors from './pages/Authors';
 import Users from './pages/Users';
 import Activities from './pages/Activities';
 import Gallery from './pages/Gallery';
-import './App.css';
 
 function App() {
   const location = useLocation();
@@ -25,16 +24,16 @@ function App() {
       '/activities': 'Activities',
       '/gallery': 'Gallery'
     };
-    
+
     const activeTab = tabMapping[path] || 'Books';
     dispatch(setActiveTab(activeTab));
   }, [location, dispatch]);
   return (
     <div className={`min-h-screen bg-slate-50 transition-colors duration-300 font-sans`}>
       <Sidebar />
-      <div className="pl-72 min-h-screen">
+      <div className="lg:pl-72 min-h-screen">
         <Navbar />
-        <main className="pt-28 px-12 max-w-[1600px] mx-auto">
+        <main className="pt-24 lg:pt-28 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
           {/* Animated Transition Wrapper */}
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out transition-all">
             <Routes>

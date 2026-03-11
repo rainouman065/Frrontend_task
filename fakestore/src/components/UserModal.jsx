@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Save, Edit3, Plus, User, Key, Loader2, Shield } from 'lucide-react';
+import { X, Save, Edit3, Plus, User, Key, Loader2 } from 'lucide-react';
 
 const UserModal = ({ isOpen, onClose, onSubmit, user, isEdit, isLoading }) => {
     const [formData, setFormData] = useState(
@@ -17,7 +17,7 @@ const UserModal = ({ isOpen, onClose, onSubmit, user, isEdit, isLoading }) => {
                         <div className={`p-1.5 rounded-lg ${isEdit ? 'bg-orange-50 text-orange-600' : 'bg-zinc-950 text-white'}`}>
                             {isEdit ? <Edit3 size={16} /> : <Plus size={16} />}
                         </div>
-                        {isEdit ? 'Refine Profile' : 'New Identity'}
+                        {isEdit ? 'Update Profile' : 'New Identity'}
                     </h3>
                     <button onClick={onClose} className="p-1.5 hover:bg-slate-50 rounded-lg transition-all text-slate-400 hover:text-orange-600">
                         <X size={18} />
@@ -42,7 +42,7 @@ const UserModal = ({ isOpen, onClose, onSubmit, user, isEdit, isLoading }) => {
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="group">
                                 <label className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1.5 block px-0.5 group-focus-within:text-orange-500 transition-colors">Security Key</label>
                                 <div className="relative">
@@ -58,17 +58,7 @@ const UserModal = ({ isOpen, onClose, onSubmit, user, isEdit, isLoading }) => {
                                 </div>
                             </div>
 
-                            <div className="p-4 bg-orange-50 rounded-xl border border-orange-100">
-                                <div className="flex gap-3">
-                                    <Shield className="text-orange-600 shrink-0" size={18} />
-                                    <div className="flex flex-col gap-1">
-                                        <span className="text-[10px] font-black text-orange-900 uppercase tracking-widest leading-none">Access Level</span>
-                                        <p className="text-[9px] font-medium text-orange-700/80 leading-relaxed">
-                                            New users are assigned standard "Member" permissions by default.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
 
                         {/* Actions */}
@@ -79,15 +69,15 @@ const UserModal = ({ isOpen, onClose, onSubmit, user, isEdit, isLoading }) => {
                                 disabled={isLoading}
                                 className="flex-1 py-3 px-4 bg-slate-50 text-slate-500 rounded-lg font-black uppercase tracking-widest text-[9px] hover:bg-slate-100 transition-all disabled:opacity-50"
                             >
-                                Dismiss
+                                Cancel
                             </button>
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="flex-[2] py-3 px-6 bg-zinc-950 text-white rounded-lg font-black uppercase tracking-widest text-[9px] shadow-sm shadow-zinc-950/20 hover:bg-orange-600 transition-all flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
+                                className="flex-[2] py-3 px-6 bg-primary-600 text-white rounded-lg font-black uppercase tracking-widest text-[9px] shadow-sm shadow-primary-600/20 hover:bg-primary-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
                             >
                                 {isLoading ? <Loader2 className="animate-spin" size={14} /> : <Save size={14} />}
-                                {isEdit ? 'Refine' : 'Add User'}
+                                {isEdit ? 'update' : 'Add User'}
                             </button>
                         </div>
                     </form>

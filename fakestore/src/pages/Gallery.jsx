@@ -1,18 +1,18 @@
 import React, { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchCoverPhotos } from '../api';
+import { request } from '../api/api';
 import { Image, Loader2, AlertCircle, Maximize2, Search } from 'lucide-react';
 
 const Gallery = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const { data: photos, isLoading, isError, error } = useQuery({
         queryKey: ['coverPhotos'],
-        queryFn: fetchCoverPhotos,
+        queryFn: () => request({ url: '/CoverPhotos', method: 'GET' }),
     });
 
     const filteredPhotos = useMemo(() => {
         if (!photos) return [];
-        return photos.filter(photo => 
+        return photos.filter(photo =>
             photo.idBook.toString().includes(searchTerm)
         );
     }, [photos, searchTerm]);
@@ -39,12 +39,12 @@ const Gallery = () => {
     return (
         <div className="space-y-8 mb-20">
             {/* Sticky Header Section */}
-            <div className="sticky top-[104px] z-[30] glass-header py-6 px-4 -mx-4 flex flex-col md:flex-row justify-between items-end gap-6 transition-all duration-300">
+            <div className="sticky top-[104px] z-[30] bg-slate-50/90 backdrop-blur-md py-6 px-4 -mx-4 flex flex-col md:flex-row justify-between items-end gap-6 transition-all duration-300">
                 <div>
                     <h3 className="text-3xl font-black text-slate-800 tracking-tight">Visual Archives</h3>
                     <p className="text-sm text-slate-400 mt-2 font-medium">A curated collection of {photos?.length} book cover designs.</p>
                 </div>
-                
+
                 <div className="relative group w-full md:w-80">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors" size={18} />
                     <input
@@ -82,7 +82,7 @@ const Gallery = () => {
                         </div>
                         {/* Corner Tag */}
                         <div className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="text-[8px] font-black text-primary-400 uppercase tracking-widest">Live View</span>
+                            <span className="text-[8px] font-black text-primary-400 uppercase tracking-widest">Live View</span>
                         </div>
                     </div>
                 ))}
