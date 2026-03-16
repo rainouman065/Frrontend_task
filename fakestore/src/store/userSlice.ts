@@ -1,6 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface UserState {
+    name: string;
+    role: string;
+    initials: string;
+    status: string;
+}
+
+const initialState: UserState = {
     name: 'Rai Nouman',
     role: 'Administrator',
     initials: 'NA',
@@ -11,7 +18,7 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        updateProfile: (state, action) => {
+        updateProfile: (state, action: PayloadAction<Partial<UserState>>) => {
             return { ...state, ...action.payload };
         },
     },

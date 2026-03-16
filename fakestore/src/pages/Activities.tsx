@@ -1,10 +1,11 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { request } from '../api/api';
-import { Activity, Clock, Loader2, AlertCircle, CircleCheck, CircleDashed } from 'lucide-react';
+import { Activity as ActivityIcon, Clock, Loader2, AlertCircle, CircleCheck, CircleDashed } from 'lucide-react';
+import { Activity } from '../types';
 
 const Activities = () => {
-    const { data: activities, isLoading, isError, error } = useQuery({
+    const { data: activities, isLoading, isError, error } = useQuery<Activity[], Error>({
         queryKey: ['activities'],
         queryFn: () => request({ url: '/Activities', method: 'GET' }),
     });
@@ -34,7 +35,7 @@ const Activities = () => {
             <div className="sticky top-[104px] z-[30] bg-slate-50/90 backdrop-blur-md py-6 px-4 -mx-4 flex items-center justify-between transition-all duration-300">
                 <div className="flex items-center gap-4">
                     <div className="p-3 bg-primary-600 rounded-[1.2rem] text-white shadow-xl shadow-primary-600/20">
-                        <Activity size={24} />
+                        <ActivityIcon size={24} />
                     </div>
                     <div>
                         <h3 className="text-3xl font-black text-slate-800 tracking-tight">System Timeline</h3>

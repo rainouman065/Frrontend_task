@@ -8,39 +8,41 @@ import {
     getPaginationRowModel,
 } from '@tanstack/react-table';
 import { request, useCommonMutation } from '../api/api';
-import {  Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import AuthorModal from '../components/AuthorModal';
 import PageHeader from '../components/PageHeader';
 import { CustomSwal, DangerSwal } from '../utils/swal';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DataTable from '../components/DataTable';
 import RowActions from '../components/RowActions';
+import { Author } from '../types';
+import { ColumnDef, SortingState, PaginationState } from '@tanstack/react-table';
 
 
 const Authors = () => {
     const queryClient = useQueryClient();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingAuthor, setEditingAuthor] = useState(null);
+    const [editingAuthor, setEditingAuthor] = useState<Author | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sorting, setSorting] = useState([]);
-    const [pagination, setPagination] = useState({
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
     });
 
-    const { data: authors = [], isLoading } = useQuery({
+    const { data: authors = [], isLoading } = useQuery<Author[], Error>({
         queryKey: ['authors'],
         queryFn: () => request({ url: '/Authors', method: 'GET' }),
     });
 
-    const createMutation = useCommonMutation('/Authors', 'POST', {
+    const createMutation = useCommonMutation<Author, Partial<Author>>('/Authors', 'POST', {
         onSuccess: (createdAuthor, variables) => {
-            const nextAuthor = createdAuthor && typeof createdAuthor === 'object' ? createdAuthor : variables;
-            queryClient.setQueryData(['authors'], (old) => {
+            const nextAuthor = createdAuthor && typeof createdAuthor === 'object' ? createdAuthor : variables as Author;
+            queryClient.setQueryData(['authors'], (old: Author[] | undefined) => {
                 const list = old || [];
                 const hasId = nextAuthor?.id !== undefined && nextAuthor?.id !== null;
                 const maxId = list.reduce((m, a) => (typeof a?.id === 'number' ? Math.max(m, a.id) : m), 0);
-                const withId = hasId ? nextAuthor : { ...nextAuthor, id: maxId + 1 };
+                const withId = hasId ? nextAuthor : { ...nextAuthor, id: maxId + 1 } as Author;
                 return [withId, ...list];
             });
             setIsModalOpen(false);
@@ -55,10 +57,10 @@ const Authors = () => {
         }
     });
 
-    const updateMutation = useCommonMutation((data) => `/Authors/${data.id}`, 'PUT', {
+    const updateMutation = useCommonMutation<Author, Partial<Author>>((data) => `/Authors/${data.id}`, 'PUT', {
         onSuccess: (_updatedAuthor, variables) => {
-            queryClient.setQueryData(['authors'], (old) =>
-                (old || []).map(a => a.id === variables.id ? { ...a, ...variables } : a)
+            queryClient.setQueryData(['authors'], (old: Author[] | undefined) =>
+                (old || []).map(a => a.id === variables.id ? { ...a, ...variables } as Author : a)
             );
             setIsModalOpen(false);
             setEditingAuthor(null);
@@ -67,7 +69,7 @@ const Authors = () => {
                 title: 'Author Records Updated',
             });
         },
-        onError: (err) => {
+        onError: (err: any) => {
             CustomSwal.fire({
                 icon: 'error',
                 title: 'Update failed',
@@ -76,10 +78,10 @@ const Authors = () => {
         }
     });
 
-    const deleteMutation = useCommonMutation((id) => `/Authors/${id}`, 'DELETE', {
+    const deleteMutation = useCommonMutation<any, number>((id) => `/Authors/${id}`, 'DELETE', {
         onSuccess: (_, deletedId) => {
             const deleted = Number(deletedId);
-            queryClient.setQueryData(['authors'], (old) =>
+            queryClient.setQueryData(['authors'], (old: Author[] | undefined) =>
                 (old || []).filter(a => Number(a.id) !== deleted)
             );
             CustomSwal.fire({
@@ -92,7 +94,7 @@ const Authors = () => {
         }
     });
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: number) => {
         DangerSwal.fire({
             title: 'Delete Author?',
             icon: 'warning',
@@ -106,7 +108,7 @@ const Authors = () => {
         });
     };
 
-    const handleEdit = (author) => {
+    const handleEdit = (author: Author) => {
         setEditingAuthor(author);
         setIsModalOpen(true);
     };
@@ -116,7 +118,7 @@ const Authors = () => {
         setIsModalOpen(true);
     };
 
-    const handleSubmit = (formData) => {
+    const handleSubmit = (formData: Partial<Author>) => {
         if (editingAuthor) {
             updateMutation.mutate({ ...formData, id: editingAuthor.id });
         } else {
@@ -125,7 +127,7 @@ const Authors = () => {
     };
 
     // TanStack Table Column Definitions
-    const columns = useMemo(() => [
+    const columns = useMemo<ColumnDef<Author>[]>(() => [
         {
             header: 'Creator Identity',
             accessorFn: row => `${row.firstName} ${row.lastName}`,
@@ -227,7 +229,7 @@ const Authors = () => {
                 title="Global Creators"
                 subtitle={`"Managing a database of ${authors.length} elite literary figures."`}
                 searchValue={searchTerm}
-                onSearch={(e) => setSearchTerm(e.target.value)}
+                onSearch={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 searchPlaceholder="Search contributors..."
                 onAdd={handleCreate}
                 addLabel="Add Author"

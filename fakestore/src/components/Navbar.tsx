@@ -2,11 +2,12 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Bell, ChevronDown, Menu } from 'lucide-react';
 import { toggleSidebar } from '../store/uiSlice';
+import { RootState } from '../store';
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const activeTab = useSelector((state) => state.ui.activeTab);
-    const user = useSelector((state) => state.user);
+    const activeTab = useSelector((state: RootState) => state.ui.activeTab);
+    const user = useSelector((state: RootState) => state.user);
 
     return (
         <>

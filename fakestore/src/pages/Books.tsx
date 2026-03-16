@@ -15,33 +15,35 @@ import { CustomSwal, DangerSwal } from '../utils/swal';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DataTable from '../components/DataTable';
 import RowActions from '../components/RowActions';
+import { Book } from '../types';
+import { ColumnDef, SortingState, PaginationState } from '@tanstack/react-table';
 
 
 const Books = () => {
     const queryClient = useQueryClient();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingBook, setEditingBook] = useState(null);
+    const [editingBook, setEditingBook] = useState<Book | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sorting, setSorting] = useState([]);
-    const [pagination, setPagination] = useState({
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
     });
 
-    const { data: books = [], isLoading } = useQuery({
+    const { data: books = [], isLoading } = useQuery<Book[], Error>({
         queryKey: ['books'],
         queryFn: () => request({ url: '/Books', method: 'GET' }),
     });
 
     // Mutations
-    const createMutation = useCommonMutation('/Books', 'POST', {
+    const createMutation = useCommonMutation<Book, Partial<Book>>('/Books', 'POST', {
         onSuccess: (createdBook, variables) => {
-            const nextBook = createdBook && typeof createdBook === 'object' ? createdBook : variables;
-            queryClient.setQueryData(['books'], (oldBooks) => {
+            const nextBook = createdBook && typeof createdBook === 'object' ? createdBook : variables as Book;
+            queryClient.setQueryData(['books'], (oldBooks: Book[] | undefined) => {
                 const list = oldBooks || [];
                 const hasId = nextBook?.id !== undefined && nextBook?.id !== null;
                 const maxId = list.reduce((m, b) => (typeof b?.id === 'number' ? Math.max(m, b.id) : m), 0);
-                const withId = hasId ? nextBook : { ...nextBook, id: maxId + 1 };
+                const withId = hasId ? nextBook : { ...nextBook, id: maxId + 1 } as Book;
                 return [withId, ...list];
             });
             setIsModalOpen(false);
@@ -51,7 +53,7 @@ const Books = () => {
 
             });
         },
-        onError: (err) => {
+        onError: (err: any) => {
             CustomSwal.fire({
                 icon: 'error',
                 title: 'Failed to add',
@@ -60,11 +62,11 @@ const Books = () => {
         }
     });
 
-    const updateMutation = useCommonMutation((data) => `/Books/${data.id}`, 'PUT', {
+    const updateMutation = useCommonMutation<Book, Partial<Book>>((data) => `/Books/${data.id}`, 'PUT', {
         onSuccess: (updatedBook, variables) => {
-            const nextBook = updatedBook && typeof updatedBook === 'object' ? updatedBook : variables;
-            queryClient.setQueryData(['books'], (oldBooks) =>
-                (oldBooks || []).map(b => b.id === nextBook.id ? { ...b, ...nextBook } : b)
+            const nextBook = updatedBook && typeof updatedBook === 'object' ? updatedBook : variables as Book;
+            queryClient.setQueryData(['books'], (oldBooks: Book[] | undefined) =>
+                (oldBooks || []).map(b => b.id === nextBook.id ? { ...b, ...nextBook } as Book : b)
             );
             setIsModalOpen(false);
             setEditingBook(null);
@@ -73,7 +75,7 @@ const Books = () => {
                 title: 'Book Updated locally',
             });
         },
-        onError: (err) => {
+        onError: (err: any) => {
             CustomSwal.fire({
                 icon: 'error',
                 title: 'Update failed',
@@ -82,10 +84,10 @@ const Books = () => {
         }
     });
 
-    const deleteMutation = useCommonMutation((id) => `/Books/${id}`, 'DELETE', {
+    const deleteMutation = useCommonMutation<any, number>((id) => `/Books/${id}`, 'DELETE', {
         onSuccess: (_, deletedId) => {
             const deleted = Number(deletedId);
-            queryClient.setQueryData(['books'], (oldBooks) =>
+            queryClient.setQueryData(['books'], (oldBooks: Book[] | undefined) =>
                 (oldBooks || []).filter(b => Number(b.id) !== deleted)
             );
             CustomSwal.fire({
@@ -93,12 +95,12 @@ const Books = () => {
                 title: 'Deleted',
             });
         },
-        onError: (err) => {
+        onError: (err: any) => {
             CustomSwal.fire({ icon: 'error', title: 'Delete failed', text: err.message });
         }
     });
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: number) => {
         DangerSwal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -113,7 +115,7 @@ const Books = () => {
         });
     };
 
-    const handleEdit = (book) => {
+    const handleEdit = (book: Book) => {
         setEditingBook(book);
         setIsModalOpen(true);
     };
@@ -123,7 +125,7 @@ const Books = () => {
         setIsModalOpen(true);
     };
 
-    const handleSubmit = (formData) => {
+    const handleSubmit = (formData: Partial<Book>) => {
         if (editingBook) {
             updateMutation.mutate({ ...formData, id: editingBook.id });
         } else {
@@ -132,7 +134,7 @@ const Books = () => {
     };
 
     // TanStack Table Column Definitions
-    const columns = useMemo(() => [
+    const columns = useMemo<ColumnDef<Book>[]>(() => [
         {
             header: 'Book Overview',
             accessorKey: 'title',
@@ -231,7 +233,7 @@ const Books = () => {
                 title="Library Collection"
                 subtitle={`"${books?.length || 0} curated masterpieces found in the database."`}
                 searchValue={searchTerm}
-                onSearch={(e) => setSearchTerm(e.target.value)}
+                onSearch={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 searchPlaceholder="Search inventory..."
                 onAdd={handleCreate}
                 addLabel="Add Books"
@@ -254,4 +256,3 @@ const Books = () => {
 };
 
 export default Books;
-   

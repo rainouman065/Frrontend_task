@@ -1,0 +1,179 @@
+﻿src/api/api.ts(13,33): error TS7031: Binding element 'url' implicitly has an 'any' type.
+src/api/api.ts(13,54): error TS7031: Binding element 'data' implicitly has an 'any' type.
+src/api/api.ts(13,60): error TS7031: Binding element 'params' implicitly has an 'any' type.
+src/api/api.ts(13,68): error TS7031: Binding element 'headers' implicitly has an 'any' type.
+src/api/api.ts(24,35): error TS7006: Parameter 'url' implicitly has an 'any' type.
+src/api/api.ts(24,40): error TS7006: Parameter 'type' implicitly has an 'any' type.
+src/api/api.ts(32,28): error TS2345: Argument of type '{ url: any; method: any; data: null | undefined; }' is not assignable to parameter of type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }'.
+  Type '{ url: any; method: any; data: null | undefined; }' is missing the following properties from type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }': params, headers
+src/api/api.ts(40,25): error TS2339: Property 'onSuccess' does not exist on type '{}'.
+src/api/api.ts(41,25): error TS2339: Property 'onSuccess' does not exist on type '{}'.
+src/api/api.ts(43,25): error TS2339: Property 'queryKeyToInvalidate' does not exist on type '{}'.
+src/api/api.ts(44,67): error TS2339: Property 'queryKeyToInvalidate' does not exist on type '{}'.
+src/App.tsx(9,24): error TS7006: Parameter 'name' implicitly has an 'any' type.
+src/App.tsx(9,30): error TS7006: Parameter 'importer' implicitly has an 'any' type.
+src/App.tsx(11,22): error TS7006: Parameter 'mod' implicitly has an 'any' type.
+src/App.tsx(12,23): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/App.tsx(42,23): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ '/books': string; '/authors': string; '/users': string; '/activities': string; '/gallery': string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ '/books': string; '/authors': string; '/users': string; '/activities': string; '/gallery': string; }'.
+src/App.tsx(47,22): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/App.tsx(48,9): error TS7034: Variable 'timeoutId' implicitly has type 'any' in some locations where its type cannot be determined.
+src/App.tsx(49,22): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/App.tsx(51,27): error TS7005: Variable 'timeoutId' implicitly has an 'any' type.
+src/App.tsx(57,27): error TS7005: Variable 'timeoutId' implicitly has an 'any' type.
+src/App.tsx(101,20): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/components/AuthorModal.tsx(6,24): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+src/components/AuthorModal.tsx(6,32): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/components/AuthorModal.tsx(6,41): error TS7031: Binding element 'onSubmit' implicitly has an 'any' type.
+src/components/AuthorModal.tsx(6,51): error TS7031: Binding element 'author' implicitly has an 'any' type.
+src/components/AuthorModal.tsx(6,59): error TS7031: Binding element 'isEdit' implicitly has an 'any' type.
+src/components/AuthorModal.tsx(6,67): error TS7031: Binding element 'isLoading' implicitly has an 'any' type.
+src/components/BookModal.tsx(6,22): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+src/components/BookModal.tsx(6,30): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/components/BookModal.tsx(6,39): error TS7031: Binding element 'onSubmit' implicitly has an 'any' type.
+src/components/BookModal.tsx(6,49): error TS7031: Binding element 'book' implicitly has an 'any' type.
+src/components/BookModal.tsx(6,55): error TS7031: Binding element 'isEdit' implicitly has an 'any' type.
+src/components/BookModal.tsx(6,63): error TS7031: Binding element 'isLoading' implicitly has an 'any' type.
+src/components/DataTable.tsx(12,22): error TS7031: Binding element 'table' implicitly has an 'any' type.
+src/components/DataTable.tsx(19,54): error TS7006: Parameter 'headerGroup' implicitly has an 'any' type.
+src/components/DataTable.tsx(21,58): error TS7006: Parameter 'header' implicitly has an 'any' type.
+src/components/DataTable.tsx(41,58): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ asc: Element; desc: Element; }'.
+src/components/DataTable.tsx(57,55): error TS7006: Parameter 'row' implicitly has an 'any' type.
+src/components/DataTable.tsx(59,60): error TS7006: Parameter 'cell' implicitly has an 'any' type.
+src/components/Navbar.tsx(8,46): error TS18046: 'state' is of type 'unknown'.
+src/components/Navbar.tsx(9,41): error TS18046: 'state' is of type 'unknown'.
+src/components/PageHeader.tsx(5,5): error TS7031: Binding element 'title' implicitly has an 'any' type.
+src/components/PageHeader.tsx(6,5): error TS7031: Binding element 'subtitle' implicitly has an 'any' type.
+src/components/PageHeader.tsx(7,5): error TS7031: Binding element 'searchValue' implicitly has an 'any' type.
+src/components/PageHeader.tsx(8,5): error TS7031: Binding element 'onSearch' implicitly has an 'any' type.
+src/components/PageHeader.tsx(10,5): error TS7031: Binding element 'onAdd' implicitly has an 'any' type.
+src/components/RowActions.tsx(10,23): error TS7031: Binding element 'onEdit' implicitly has an 'any' type.
+src/components/RowActions.tsx(10,31): error TS7031: Binding element 'onDelete' implicitly has an 'any' type.
+src/components/Sidebar.tsx(9,48): error TS18046: 'state' is of type 'unknown'.
+src/components/Sidebar.tsx(19,29): error TS7006: Parameter 'name' implicitly has an 'any' type.
+src/components/TablePagination.tsx(8,28): error TS7031: Binding element 'table' implicitly has an 'any' type.
+src/components/UserModal.tsx(6,22): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+src/components/UserModal.tsx(6,30): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/components/UserModal.tsx(6,39): error TS7031: Binding element 'onSubmit' implicitly has an 'any' type.
+src/components/UserModal.tsx(6,49): error TS7031: Binding element 'user' implicitly has an 'any' type.
+src/components/UserModal.tsx(6,55): error TS7031: Binding element 'isEdit' implicitly has an 'any' type.
+src/components/UserModal.tsx(6,63): error TS7031: Binding element 'isLoading' implicitly has an 'any' type.
+src/main.tsx(12,21): error TS2345: Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Container'.
+  Type 'null' is not assignable to type 'Container'.
+src/pages/Activities.tsx(9,32): error TS2345: Argument of type '{ url: string; method: string; }' is not assignable to parameter of type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }'.
+  Type '{ url: string; method: string; }' is missing the following properties from type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }': data, params, headers
+src/pages/Activities.tsx(54,35): error TS7006: Parameter 'activity' implicitly has an 'any' type.
+src/pages/Authors.tsx(33,32): error TS2345: Argument of type '{ url: string; method: string; }' is not assignable to parameter of type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }'.
+  Type '{ url: string; method: string; }' is missing the following properties from type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }': data, params, headers
+src/pages/Authors.tsx(37,21): error TS7006: Parameter 'createdAuthor' implicitly has an 'any' type.
+src/pages/Authors.tsx(37,36): error TS7006: Parameter 'variables' implicitly has an 'any' type.
+src/pages/Authors.tsx(42,36): error TS2339: Property 'reduce' does not exist on type '{}'.
+src/pages/Authors.tsx(42,44): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/pages/Authors.tsx(42,47): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/pages/Authors.tsx(44,36): error TS2488: Type '{}' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/pages/Authors.tsx(53,19): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/pages/Authors.tsx(58,47): error TS7006: Parameter 'data' implicitly has an 'any' type.
+src/pages/Authors.tsx(59,21): error TS7006: Parameter '_updatedAuthor' implicitly has an 'any' type.
+src/pages/Authors.tsx(59,37): error TS7006: Parameter 'variables' implicitly has an 'any' type.
+src/pages/Authors.tsx(61,29): error TS2339: Property 'map' does not exist on type '{}'.
+src/pages/Authors.tsx(61,33): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/pages/Authors.tsx(70,19): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/pages/Authors.tsx(79,47): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/pages/Authors.tsx(80,21): error TS7006: Parameter '_' implicitly has an 'any' type.
+src/pages/Authors.tsx(80,24): error TS7006: Parameter 'deletedId' implicitly has an 'any' type.
+src/pages/Authors.tsx(83,29): error TS2339: Property 'filter' does not exist on type '{}'.
+src/pages/Authors.tsx(83,36): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/pages/Authors.tsx(90,19): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/pages/Authors.tsx(95,27): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/pages/Authors.tsx(104,39): error TS2345: Argument of type 'number' is not assignable to parameter of type 'void'.
+src/pages/Authors.tsx(109,25): error TS7006: Parameter 'author' implicitly has an 'any' type.
+src/pages/Authors.tsx(119,27): error TS7006: Parameter 'formData' implicitly has an 'any' type.
+src/pages/Authors.tsx(121,68): error TS2339: Property 'id' does not exist on type 'never'.
+src/pages/Authors.tsx(131,25): error TS7006: Parameter 'row' implicitly has an 'any' type.
+src/pages/Authors.tsx(133,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Authors.tsx(158,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Authors.tsx(192,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Authors.tsx(213,9): error TS2322: Type 'Dispatch<SetStateAction<never[]>>' is not assignable to type 'OnChangeFn<SortingState>'.
+  Types of parameters 'value' and 'updaterOrValue' are incompatible.
+    Type 'Updater<SortingState>' is not assignable to type 'SetStateAction<never[]>'.
+      Type 'SortingState' is not assignable to type 'SetStateAction<never[]>'.
+        Type 'ColumnSort[]' is not assignable to type 'never[]'.
+          Type 'ColumnSort' is not assignable to type 'never'.
+src/pages/Authors.tsx(230,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/pages/Authors.tsx(239,67): error TS2339: Property 'id' does not exist on type 'never'.
+src/pages/Books.tsx(33,32): error TS2345: Argument of type '{ url: string; method: string; }' is not assignable to parameter of type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }'.
+  Type '{ url: string; method: string; }' is missing the following properties from type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }': data, params, headers
+src/pages/Books.tsx(38,21): error TS7006: Parameter 'createdBook' implicitly has an 'any' type.
+src/pages/Books.tsx(38,34): error TS7006: Parameter 'variables' implicitly has an 'any' type.
+src/pages/Books.tsx(43,36): error TS2339: Property 'reduce' does not exist on type '{}'.
+src/pages/Books.tsx(43,44): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/pages/Books.tsx(43,47): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/pages/Books.tsx(45,36): error TS2488: Type '{}' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/pages/Books.tsx(54,19): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/pages/Books.tsx(63,47): error TS7006: Parameter 'data' implicitly has an 'any' type.
+src/pages/Books.tsx(64,21): error TS7006: Parameter 'updatedBook' implicitly has an 'any' type.
+src/pages/Books.tsx(64,34): error TS7006: Parameter 'variables' implicitly has an 'any' type.
+src/pages/Books.tsx(67,34): error TS2339: Property 'map' does not exist on type '{}'.
+src/pages/Books.tsx(67,38): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/pages/Books.tsx(76,19): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/pages/Books.tsx(85,47): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/pages/Books.tsx(86,21): error TS7006: Parameter '_' implicitly has an 'any' type.
+src/pages/Books.tsx(86,24): error TS7006: Parameter 'deletedId' implicitly has an 'any' type.
+src/pages/Books.tsx(89,34): error TS2339: Property 'filter' does not exist on type '{}'.
+src/pages/Books.tsx(89,41): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/pages/Books.tsx(96,19): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/pages/Books.tsx(101,27): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/pages/Books.tsx(111,39): error TS2345: Argument of type 'number' is not assignable to parameter of type 'void'.
+src/pages/Books.tsx(116,25): error TS7006: Parameter 'book' implicitly has an 'any' type.
+src/pages/Books.tsx(126,27): error TS7006: Parameter 'formData' implicitly has an 'any' type.
+src/pages/Books.tsx(128,66): error TS2339: Property 'id' does not exist on type 'never'.
+src/pages/Books.tsx(139,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Books.tsx(157,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Books.tsx(176,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Books.tsx(196,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Books.tsx(217,9): error TS2322: Type 'Dispatch<SetStateAction<never[]>>' is not assignable to type 'OnChangeFn<SortingState>'.
+  Types of parameters 'value' and 'updaterOrValue' are incompatible.
+    Type 'Updater<SortingState>' is not assignable to type 'SetStateAction<never[]>'.
+      Type 'SortingState' is not assignable to type 'SetStateAction<never[]>'.
+        Type 'ColumnSort[]' is not assignable to type 'never[]'.
+          Type 'ColumnSort' is not assignable to type 'never'.
+src/pages/Books.tsx(234,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/pages/Books.tsx(244,56): error TS2339: Property 'id' does not exist on type 'never'.
+src/pages/Gallery.tsx(10,32): error TS2345: Argument of type '{ url: string; method: string; }' is not assignable to parameter of type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }'.
+  Type '{ url: string; method: string; }' is missing the following properties from type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }': data, params, headers
+src/pages/Gallery.tsx(15,30): error TS7006: Parameter 'photo' implicitly has an 'any' type.
+src/pages/Gallery.tsx(61,39): error TS7006: Parameter 'photo' implicitly has an 'any' type.
+src/pages/Users.tsx(34,32): error TS2345: Argument of type '{ url: string; method: string; }' is not assignable to parameter of type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }'.
+  Type '{ url: string; method: string; }' is missing the following properties from type '{ url: any; method?: string | undefined; data: any; params: any; headers: any; }': data, params, headers
+src/pages/Users.tsx(38,21): error TS7006: Parameter 'createdUser' implicitly has an 'any' type.
+src/pages/Users.tsx(38,34): error TS7006: Parameter 'variables' implicitly has an 'any' type.
+src/pages/Users.tsx(43,36): error TS2339: Property 'reduce' does not exist on type '{}'.
+src/pages/Users.tsx(43,44): error TS7006: Parameter 'm' implicitly has an 'any' type.
+src/pages/Users.tsx(43,47): error TS7006: Parameter 'u' implicitly has an 'any' type.
+src/pages/Users.tsx(45,36): error TS2488: Type '{}' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/pages/Users.tsx(55,47): error TS7006: Parameter 'data' implicitly has an 'any' type.
+src/pages/Users.tsx(56,21): error TS7006: Parameter 'updatedUser' implicitly has an 'any' type.
+src/pages/Users.tsx(56,34): error TS7006: Parameter 'variables' implicitly has an 'any' type.
+src/pages/Users.tsx(59,34): error TS2339: Property 'map' does not exist on type '{}'.
+src/pages/Users.tsx(59,38): error TS7006: Parameter 'u' implicitly has an 'any' type.
+src/pages/Users.tsx(69,47): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/pages/Users.tsx(70,21): error TS7006: Parameter '_' implicitly has an 'any' type.
+src/pages/Users.tsx(70,24): error TS7006: Parameter 'deletedId' implicitly has an 'any' type.
+src/pages/Users.tsx(73,34): error TS2339: Property 'filter' does not exist on type '{}'.
+src/pages/Users.tsx(73,41): error TS7006: Parameter 'u' implicitly has an 'any' type.
+src/pages/Users.tsx(87,25): error TS7006: Parameter 'user' implicitly has an 'any' type.
+src/pages/Users.tsx(92,27): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/pages/Users.tsx(102,39): error TS2345: Argument of type 'number' is not assignable to parameter of type 'void'.
+src/pages/Users.tsx(107,27): error TS7006: Parameter 'formData' implicitly has an 'any' type.
+src/pages/Users.tsx(109,66): error TS2339: Property 'id' does not exist on type 'never'.
+src/pages/Users.tsx(120,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Users.tsx(138,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Users.tsx(169,22): error TS7031: Binding element 'row' implicitly has an 'any' type.
+src/pages/Users.tsx(190,9): error TS2322: Type 'Dispatch<SetStateAction<never[]>>' is not assignable to type 'OnChangeFn<SortingState>'.
+  Types of parameters 'value' and 'updaterOrValue' are incompatible.
+    Type 'Updater<SortingState>' is not assignable to type 'SetStateAction<never[]>'.
+      Type 'SortingState' is not assignable to type 'SetStateAction<never[]>'.
+        Type 'ColumnSort[]' is not assignable to type 'never[]'.
+          Type 'ColumnSort' is not assignable to type 'never'.
+src/pages/Users.tsx(217,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/pages/Users.tsx(226,56): error TS2339: Property 'id' does not exist on type 'never'.

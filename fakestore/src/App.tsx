@@ -1,13 +1,14 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { motion, AnimatePresence } from 'framer-motion';
 import { setActiveTab } from './store/uiSlice';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 
-const lazyWithDebug = (name, importer) =>
+const lazyWithDebug = (name: string, importer: () => Promise<any>) =>
   lazy(() =>
-    importer().then((mod) => {
+    importer().then((mod: any) => {
       if (import.meta.env.DEV) {
         console.info(`[lazy] loaded: ${name}`);
         window.dispatchEvent(new CustomEvent('lazy:loaded', { detail: { name, at: Date.now() } }));
@@ -25,12 +26,12 @@ const Gallery = lazyWithDebug('Gallery', () => import('./pages/Gallery'));
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [lazyDebug, setLazyDebug] = useState(null);
+  const [lazyDebug, setLazyDebug] = useState<string | null>(null);
 
   useEffect(() => {
     // Synchronize Redux state with current URL path
     const path = location.pathname;
-    const tabMapping = {
+    const tabMapping: Record<string, string> = {
       '/books': 'Books',
       '/authors': 'Authors',
       '/users': 'Users',
@@ -44,11 +45,11 @@ function App() {
 
   useEffect(() => {
     if (!import.meta.env.DEV) return;
-    let timeoutId;
-    const handler = (e) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const handler = (e: any) => {
       setLazyDebug(e?.detail?.name || 'Unknown');
       window.clearTimeout(timeoutId);
-      timeoutId = window.setTimeout(() => setLazyDebug(null), 2000);
+      timeoutId = setTimeout(() => setLazyDebug(null), 2000);
     };
     window.addEventListener('lazy:loaded', handler);
     return () => {
@@ -75,20 +76,25 @@ function App() {
             }
           >
             {/* Animated Transition Wrapper (re-triggers on route change) */}
-            <div
-              key={location.pathname}
-              className="animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out transition-all"
-            >
-              <Routes>
-                <Route path="/" element={<Navigate to="/books" replace />} />
-                <Route path="/books" element={<Books />} />
-                <Route path="/authors" element={<Authors />} />
-                <Route path="/users" element={<Users />} />
-                <Route path="/activities" element={<Activities />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="*" element={<Navigate to="/books" replace />} />
-              </Routes>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+              >
+                <Routes location={location} key={location.pathname}>
+                  <Route path="/" element={<Navigate to="/books" replace />} />
+                  <Route path="/books" element={<Books />} />
+                  <Route path="/authors" element={<Authors />} />
+                  <Route path="/users" element={<Users />} />
+                  <Route path="/activities" element={<Activities />} />
+                  <Route path="/gallery" element={<Gallery />} />
+                  <Route path="*" element={<Navigate to="/books" replace />} />
+                </Routes>
+              </motion.div>
+            </AnimatePresence>
           </Suspense>
         </main>
       </div>

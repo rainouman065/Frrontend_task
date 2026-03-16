@@ -2,17 +2,18 @@ import React, { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { request } from '../api/api';
 import { Image, Loader2, AlertCircle, Maximize2, Search } from 'lucide-react';
+import { Photo } from '../types';
 
-const Gallery = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const { data: photos, isLoading, isError, error } = useQuery({
+const Gallery: React.FC = () => {
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const { data: photos, isLoading, isError, error } = useQuery<Photo[], Error>({
         queryKey: ['coverPhotos'],
         queryFn: () => request({ url: '/CoverPhotos', method: 'GET' }),
     });
 
     const filteredPhotos = useMemo(() => {
         if (!photos) return [];
-        return photos.filter(photo =>
+        return photos.filter((photo: Photo) =>
             photo.idBook.toString().includes(searchTerm)
         );
     }, [photos, searchTerm]);

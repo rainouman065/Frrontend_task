@@ -1,6 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface UiState {
+    activeTab: string;
+    sidebarOpen: boolean;
+}
+
+const initialState: UiState = {
     activeTab: 'Books',
     sidebarOpen: false,
 };
@@ -9,7 +14,7 @@ export const uiSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        setActiveTab: (state, action) => {
+        setActiveTab: (state, action: PayloadAction<string>) => {
             state.activeTab = action.payload;
         },
         toggleSidebar: (state) => {

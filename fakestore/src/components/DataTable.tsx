@@ -1,15 +1,14 @@
-import React from 'react';
-import { flexRender } from '@tanstack/react-table';
+import React, { ReactElement } from 'react';
+import { flexRender, Table } from '@tanstack/react-table';
 import { ChevronUp, ChevronDown, ChevronsUpDown } from 'lucide-react';
 import TablePagination from './TablePagination';
 
-/**
- * Reusable DataTable with sticky header, sorting icons, sticky actions column, and pagination.
- * Props:
- *  - table          : TanStack Table instance
- *  - centeredColumns: string[] — column IDs that should be center-aligned (default: ['status'])
- */
-const DataTable = ({ table, centeredColumns = ['status'] }) => {
+interface DataTableProps<T> {
+    table: Table<T>;
+    centeredColumns?: string[];
+}
+
+const DataTable = <T extends unknown>({ table, centeredColumns = ['status'] }: DataTableProps<T>) => {
     return (
         <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
             <div className="overflow-x-auto relative">
@@ -41,7 +40,7 @@ const DataTable = ({ table, centeredColumns = ['status'] }) => {
                                                         {{
                                                             asc: <ChevronUp size={12} className="text-primary-600" />,
                                                             desc: <ChevronDown size={12} className="text-primary-600" />,
-                                                        }[header.column.getIsSorted()] ?? <ChevronsUpDown size={10} className="text-slate-300" />}
+                                                        }[header.column.getIsSorted() as string] ?? <ChevronsUpDown size={10} className="text-slate-300" />}
                                                     </div>
                                                 )}
                                             </div>

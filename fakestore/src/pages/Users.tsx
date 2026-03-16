@@ -16,32 +16,34 @@ import { CustomSwal, DangerSwal } from '../utils/swal';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DataTable from '../components/DataTable';
 import RowActions from '../components/RowActions';
+import { User } from '../types';
+import { ColumnDef, SortingState, PaginationState } from '@tanstack/react-table';
 
 
 const Users = () => {
     const queryClient = useQueryClient();
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingUser, setEditingUser] = useState(null);
-    const [sorting, setSorting] = useState([]);
-    const [pagination, setPagination] = useState({
+    const [editingUser, setEditingUser] = useState<User | null>(null);
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
     });
 
-    const { data: users = [], isLoading, isError, error } = useQuery({
+    const { data: users = [], isLoading, isError, error } = useQuery<User[], Error>({
         queryKey: ['users'],
         queryFn: () => request({ url: '/Users', method: 'GET' }),
     });
 
-    const createMutation = useCommonMutation('/Users', 'POST', {
+    const createMutation = useCommonMutation<User, Partial<User>>('/Users', 'POST', {
         onSuccess: (createdUser, variables) => {
-            const nextUser = createdUser && typeof createdUser === 'object' ? createdUser : variables;
-            queryClient.setQueryData(['users'], (oldUsers) => {
+            const nextUser = createdUser && typeof createdUser === 'object' ? createdUser : variables as User;
+            queryClient.setQueryData(['users'], (oldUsers: User[] | undefined) => {
                 const list = oldUsers || [];
                 const hasId = nextUser?.id !== undefined && nextUser?.id !== null;
                 const maxId = list.reduce((m, u) => (typeof u?.id === 'number' ? Math.max(m, u.id) : m), 0);
-                const withId = hasId ? nextUser : { ...nextUser, id: maxId + 1 };
+                const withId = hasId ? nextUser : { ...nextUser, id: maxId + 1 } as User;
                 return [withId, ...list];
             });
             setIsModalOpen(false);
@@ -52,11 +54,11 @@ const Users = () => {
         }
     });
 
-    const updateMutation = useCommonMutation((data) => `/Users/${data.id}`, 'PUT', {
+    const updateMutation = useCommonMutation<User, Partial<User>>((data) => `/Users/${data.id}`, 'PUT', {
         onSuccess: (updatedUser, variables) => {
-            const nextUser = updatedUser && typeof updatedUser === 'object' ? updatedUser : variables;
-            queryClient.setQueryData(['users'], (oldUsers) =>
-                (oldUsers || []).map(u => u.id === nextUser.id ? { ...u, ...nextUser } : u)
+            const nextUser = updatedUser && typeof updatedUser === 'object' ? updatedUser : variables as User;
+            queryClient.setQueryData(['users'], (oldUsers: User[] | undefined) =>
+                (oldUsers || []).map(u => u.id === nextUser.id ? { ...u, ...nextUser } as User : u)
             );
             setIsModalOpen(false);
             CustomSwal.fire({
@@ -66,10 +68,10 @@ const Users = () => {
         }
     });
 
-    const deleteMutation = useCommonMutation((id) => `/Users/${id}`, 'DELETE', {
+    const deleteMutation = useCommonMutation<any, number>((id) => `/Users/${id}`, 'DELETE', {
         onSuccess: (_, deletedId) => {
             const deleted = Number(deletedId);
-            queryClient.setQueryData(['users'], (oldUsers) =>
+            queryClient.setQueryData(['users'], (oldUsers: User[] | undefined) =>
                 (oldUsers || []).filter(u => Number(u.id) !== deleted)
             );
             CustomSwal.fire({
@@ -84,12 +86,12 @@ const Users = () => {
         setIsModalOpen(true);
     };
 
-    const handleEdit = (user) => {
+    const handleEdit = (user: User) => {
         setEditingUser(user);
         setIsModalOpen(true);
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: number) => {
         DangerSwal.fire({
             title: 'Delete User?',
             text: "This action will permanently purge the user identity!",
@@ -104,7 +106,7 @@ const Users = () => {
         });
     };
 
-    const handleSubmit = (formData) => {
+    const handleSubmit = (formData: Partial<User>) => {
         if (editingUser) {
             updateMutation.mutate({ ...formData, id: editingUser.id });
         } else {
@@ -113,7 +115,7 @@ const Users = () => {
     };
 
     // TanStack Table Column Definitions
-    const columns = useMemo(() => [
+    const columns = useMemo<ColumnDef<User>[]>(() => [
         {
             header: 'User Details',
             accessorKey: 'userName',
@@ -214,7 +216,7 @@ const Users = () => {
                 title="Active Users"
                 subtitle="Manage and monitor system users and their permissions."
                 searchValue={searchTerm}
-                onSearch={(e) => setSearchTerm(e.target.value)}
+                onSearch={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 searchPlaceholder="Filter identities..."
                 onAdd={handleCreate}
                 addLabel="Add New User"
