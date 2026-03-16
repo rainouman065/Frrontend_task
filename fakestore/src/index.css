@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Consistent fullscreen modal backdrop + strong blur */
+@layer utilities {
+  .modal-backdrop {
+    background: rgba(9, 9, 11, 0.8); /* darker overlay */
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .modal-backdrop {
+      background: rgba(9, 9, 11, 0.9);
+    }
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -18,6 +33,23 @@
 @layer utilities {
   .animate-in {
     animation-fill-mode: forwards;
+  }
+
+  /* Matches existing usage: `slide-in-from-bottom-4` */
+  .slide-in-from-bottom-4 {
+    animation: slideInFromBottom4 0.7s ease-out;
+  }
+
+  @keyframes slideInFromBottom4 {
+    0% {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes slideInFromBottom {
@@ -43,6 +75,36 @@
 
     to {
       opacity: 1;
+    }
+  }
+
+  /* Small, reusable micro-interactions */
+  .hover-lift {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .press {
+    transition: transform 120ms ease;
+  }
+
+  .press:active {
+    transform: scale(0.98);
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-in,
+    .slide-in-from-bottom-4,
+    .fade-in,
+    .hover-lift,
+    .press {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important;
     }
   }
 }

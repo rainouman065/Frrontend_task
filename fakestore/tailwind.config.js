@@ -6,6 +6,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        xs: ['0.6875rem', { lineHeight: '1rem' }],     // 11px
+        sm: ['0.8125rem', { lineHeight: '1.25rem' }],  // 13px
+        base: ['0.875rem', { lineHeight: '1.5rem' }],  // 14px
+        lg: ['1rem', { lineHeight: '1.75rem' }],       // 16px
+        xl: ['1.125rem', { lineHeight: '1.75rem' }],   // 18px
+        '2xl': ['1.25rem', { lineHeight: '1.75rem' }], // 20px
+        '3xl': ['1.5rem', { lineHeight: '2rem' }],     // 24px
+        '4xl': ['1.875rem', { lineHeight: '2.25rem' }],// 30px
+      },
       colors: {
         primary: {
           50: '#eef2ff',

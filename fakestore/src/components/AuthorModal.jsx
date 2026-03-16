@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Save, Edit3, Plus, Loader2 } from 'lucide-react';
 
 const AuthorModal = ({ isOpen, onClose, onSubmit, author, isEdit, isLoading }) => {
@@ -6,10 +7,16 @@ const AuthorModal = ({ isOpen, onClose, onSubmit, author, isEdit, isLoading }) =
         author || { firstName: '', lastName: '', idBook: 0 }
     );
 
+    useEffect(() => {
+        if (!isOpen) return;
+        document.body.classList.add('overflow-hidden');
+        return () => document.body.classList.remove('overflow-hidden');
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
-    return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-zinc-950/60 backdrop-blur-md animate-in fade-in duration-500">
+    return createPortal(
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 modal-backdrop animate-in fade-in duration-500">
             <div className="bg-white w-full max-w-sm rounded-xl shadow-md border border-slate-100 overflow-hidden transform transition-all max-h-[90vh] flex flex-col">
                 {/* Header */}
                 <div className="px-5 py-4 border-b border-slate-50 flex justify-between items-center bg-white sticky top-0">
@@ -87,7 +94,8 @@ const AuthorModal = ({ isOpen, onClose, onSubmit, author, isEdit, isLoading }) =
                     </form>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 
