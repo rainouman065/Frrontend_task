@@ -19,10 +19,11 @@ import { Author } from '../types';
 import { ColumnDef, SortingState, PaginationState } from '@tanstack/react-table';
 
 
+import { useModal } from '../context/ModalContext';
+
 const Authors = () => {
     const queryClient = useQueryClient();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingAuthor, setEditingAuthor] = useState<Author | null>(null);
+    const { showModal, hideModal } = useModal();
     const [searchTerm, setSearchTerm] = useState('');
     const [sorting, setSorting] = useState<SortingState>([]);
     const [pagination, setPagination] = useState<PaginationState>({
@@ -45,7 +46,7 @@ const Authors = () => {
                 const withId = hasId ? nextAuthor : { ...nextAuthor, id: maxId + 1 } as Author;
                 return [withId, ...list];
             });
-            setIsModalOpen(false);
+            hideModal();
             CustomSwal.fire({
                 icon: 'success',
                 title: 'Author Onboarded (Local)',
@@ -62,8 +63,7 @@ const Authors = () => {
             queryClient.setQueryData(['authors'], (old: Author[] | undefined) =>
                 (old || []).map(a => a.id === variables.id ? { ...a, ...variables } as Author : a)
             );
-            setIsModalOpen(false);
-            setEditingAuthor(null);
+            hideModal();
             CustomSwal.fire({
                 icon: 'success',
                 title: 'Author Records Updated',
@@ -109,21 +109,29 @@ const Authors = () => {
     };
 
     const handleEdit = (author: Author) => {
-        setEditingAuthor(author);
-        setIsModalOpen(true);
+        showModal(
+            <AuthorModal
+                isOpen={true}
+                onClose={hideModal}
+                onSubmit={(formData) => updateMutation.mutate({ ...formData, id: author.id })}
+                author={author}
+                isEdit={true}
+                isLoading={updateMutation.isPending}
+            />
+        );
     };
 
     const handleCreate = () => {
-        setEditingAuthor(null);
-        setIsModalOpen(true);
-    };
-
-    const handleSubmit = (formData: Partial<Author>) => {
-        if (editingAuthor) {
-            updateMutation.mutate({ ...formData, id: editingAuthor.id });
-        } else {
-            createMutation.mutate(formData);
-        }
+        showModal(
+            <AuthorModal
+                isOpen={true}
+                onClose={hideModal}
+                onSubmit={(formData) => createMutation.mutate(formData)}
+                isEdit={false}
+                author={null}
+                isLoading={createMutation.isPending}
+            />
+        );
     };
 
     // TanStack Table Column Definitions
@@ -236,16 +244,6 @@ const Authors = () => {
             />
 
             <DataTable table={table} centeredColumns={['status']} />
-
-            <AuthorModal
-                key={editingAuthor ? `edit-author-${editingAuthor.id}` : 'create-author'}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onSubmit={handleSubmit}
-                author={editingAuthor}
-                isEdit={!!editingAuthor}
-                isLoading={createMutation.isPending || updateMutation.isPending}
-            />
         </div>
     );
 };

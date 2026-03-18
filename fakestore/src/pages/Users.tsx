@@ -20,11 +20,12 @@ import { User } from '../types';
 import { ColumnDef, SortingState, PaginationState } from '@tanstack/react-table';
 
 
+import { useModal } from '../context/ModalContext';
+
 const Users = () => {
     const queryClient = useQueryClient();
+    const { showModal, hideModal } = useModal();
     const [searchTerm, setSearchTerm] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingUser, setEditingUser] = useState<User | null>(null);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -46,7 +47,7 @@ const Users = () => {
                 const withId = hasId ? nextUser : { ...nextUser, id: maxId + 1 } as User;
                 return [withId, ...list];
             });
-            setIsModalOpen(false);
+            hideModal();
             CustomSwal.fire({
                 icon: 'success',
                 title: 'User Onboarded!',
@@ -60,7 +61,7 @@ const Users = () => {
             queryClient.setQueryData(['users'], (oldUsers: User[] | undefined) =>
                 (oldUsers || []).map(u => u.id === nextUser.id ? { ...u, ...nextUser } as User : u)
             );
-            setIsModalOpen(false);
+            hideModal();
             CustomSwal.fire({
                 icon: 'success',
                 title: 'Profile Synchronized!',
@@ -82,13 +83,29 @@ const Users = () => {
     });
 
     const handleCreate = () => {
-        setEditingUser(null);
-        setIsModalOpen(true);
+        showModal(
+            <UserModal
+                isOpen={true}
+                onClose={hideModal}
+                onSubmit={(formData) => createMutation.mutate(formData)}
+                isEdit={false}
+                user={null}
+                isLoading={createMutation.isPending}
+            />
+        );
     };
 
     const handleEdit = (user: User) => {
-        setEditingUser(user);
-        setIsModalOpen(true);
+        showModal(
+            <UserModal
+                isOpen={true}
+                onClose={hideModal}
+                onSubmit={(formData) => updateMutation.mutate({ ...formData, id: user.id })}
+                user={user}
+                isEdit={true}
+                isLoading={updateMutation.isPending}
+            />
+        );
     };
 
     const handleDelete = (id: number) => {
@@ -104,14 +121,6 @@ const Users = () => {
                 deleteMutation.mutate(Number(id));
             }
         });
-    };
-
-    const handleSubmit = (formData: Partial<User>) => {
-        if (editingUser) {
-            updateMutation.mutate({ ...formData, id: editingUser.id });
-        } else {
-            createMutation.mutate(formData);
-        }
     };
 
     // TanStack Table Column Definitions
@@ -223,16 +232,6 @@ const Users = () => {
             />
 
             <DataTable table={table} centeredColumns={['status']} />
-
-            <UserModal
-                key={editingUser ? `edit-${editingUser.id}` : 'create'}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onSubmit={handleSubmit}
-                user={editingUser}
-                isEdit={!!editingUser}
-                isLoading={createMutation.isPending || updateMutation.isPending}
-            />
         </div>
     );
 };

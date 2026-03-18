@@ -1,7 +1,18 @@
 import React from 'react';
 import { Search, Plus, Loader2 } from 'lucide-react';
 
-const PageHeader = ({
+interface PageHeaderProps {
+    title: string;
+    subtitle?: string;
+    searchValue: string;
+    onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    searchPlaceholder?: string;
+    onAdd: () => void;
+    addLabel?: string;
+    isAdding?: boolean;
+}
+
+const PageHeader: React.FC<PageHeaderProps> = ({
     title,
     subtitle,
     searchValue,
@@ -12,8 +23,8 @@ const PageHeader = ({
     isAdding = false,
 }) => {
     return (
-        <div className="sticky top-[104px] z-[30] bg-slate-50/90 backdrop-blur-md py-6 px-4 -mx-4 flex flex-col md:flex-row justify-between items-center gap-6 transition-all duration-300">
-            {/* Left: Title + Subtitle */}
+        <div className="sticky top-[104px] z-[30] bg-slate-50 py-6 px-4 -mx-4 flex flex-col md:flex-row justify-between items-center gap-6 transition-all duration-300">
+            {/* Left */}
             <div>
                 <h3 className="text-3xl font-black text-slate-800 tracking-tight">{title}</h3>
                 {subtitle && (
@@ -21,9 +32,10 @@ const PageHeader = ({
                 )}
             </div>
 
-            {/* Right: Search + Add Button */}
+            {/* Right */}
             <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-                {/* Search Input */}
+                
+                {/* Search */}
                 <div className="relative group w-full md:w-80">
                     <Search
                         className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors"
@@ -38,7 +50,7 @@ const PageHeader = ({
                     />
                 </div>
 
-                {/* Add Button */}
+                {/* Button */}
                 <button
                     onClick={onAdd}
                     disabled={isAdding}

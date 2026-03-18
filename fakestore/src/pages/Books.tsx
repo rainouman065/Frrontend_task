@@ -19,10 +19,11 @@ import { Book } from '../types';
 import { ColumnDef, SortingState, PaginationState } from '@tanstack/react-table';
 
 
+import { useModal } from '../context/ModalContext';
+
 const Books = () => {
     const queryClient = useQueryClient();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingBook, setEditingBook] = useState<Book | null>(null);
+    const { showModal, hideModal } = useModal();
     const [searchTerm, setSearchTerm] = useState('');
     const [sorting, setSorting] = useState<SortingState>([]);
     const [pagination, setPagination] = useState<PaginationState>({
@@ -46,11 +47,10 @@ const Books = () => {
                 const withId = hasId ? nextBook : { ...nextBook, id: maxId + 1 } as Book;
                 return [withId, ...list];
             });
-            setIsModalOpen(false);
+            hideModal();
             CustomSwal.fire({
                 icon: 'success',
                 title: 'Book Added',
-
             });
         },
         onError: (err: any) => {
@@ -68,8 +68,7 @@ const Books = () => {
             queryClient.setQueryData(['books'], (oldBooks: Book[] | undefined) =>
                 (oldBooks || []).map(b => b.id === nextBook.id ? { ...b, ...nextBook } as Book : b)
             );
-            setIsModalOpen(false);
-            setEditingBook(null);
+            hideModal();
             CustomSwal.fire({
                 icon: 'success',
                 title: 'Book Updated locally',
@@ -116,21 +115,28 @@ const Books = () => {
     };
 
     const handleEdit = (book: Book) => {
-        setEditingBook(book);
-        setIsModalOpen(true);
+        showModal(
+            <BookModal
+                isOpen={true}
+                onClose={hideModal}
+                onSubmit={(formData) => updateMutation.mutate({ ...formData, id: book.id })}
+                book={book}
+                isEdit={true}
+                isLoading={updateMutation.isPending}
+            />
+        );
     };
 
     const handleCreate = () => {
-        setEditingBook(null);
-        setIsModalOpen(true);
-    };
-
-    const handleSubmit = (formData: Partial<Book>) => {
-        if (editingBook) {
-            updateMutation.mutate({ ...formData, id: editingBook.id });
-        } else {
-            createMutation.mutate(formData);
-        }
+        showModal(
+            <BookModal
+                isOpen={true}
+                onClose={hideModal}
+                onSubmit={(formData) => createMutation.mutate(formData)}
+                isEdit={false}
+                isLoading={createMutation.isPending}
+            />
+        );
     };
 
     // TanStack Table Column Definitions
@@ -241,16 +247,6 @@ const Books = () => {
             />
 
             <DataTable table={table} centeredColumns={['properties']} />
-
-            <BookModal
-                key={editingBook ? `edit-${editingBook.id}` : 'create'}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onSubmit={handleSubmit}
-                book={editingBook}
-                isEdit={!!editingBook}
-                isLoading={createMutation.isPending || updateMutation.isPending}
-            />
         </div>
     );
 };

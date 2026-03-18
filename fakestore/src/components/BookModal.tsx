@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { X, Save, Edit3, Trash2, Plus, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Book } from '../types';
@@ -18,15 +17,8 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, onSubmit, book, 
         book || { title: '', description: '', pageCount: 0, excerpt: '', publishDate: new Date().toISOString() }
     );
 
-    useEffect(() => {
-        if (!isOpen) return;
-        document.body.classList.add('overflow-hidden');
-        return () => document.body.classList.remove('overflow-hidden');
-    }, [isOpen]);
 
-    if (typeof window === 'undefined') return null;
-
-    return createPortal(
+    return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
@@ -138,8 +130,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, onSubmit, book, 
                     </motion.div>
                 </motion.div>
             )}
-        </AnimatePresence>,
-        document.body
+        </AnimatePresence>
     );
 };
 

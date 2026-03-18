@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { X, Save, Edit3, Plus, User as UserIcon, Key, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User } from '../types';
@@ -18,15 +17,8 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSubmit, user, 
         user || { userName: '', password: '' }
     );
 
-    useEffect(() => {
-        if (!isOpen) return;
-        document.body.classList.add('overflow-hidden');
-        return () => document.body.classList.remove('overflow-hidden');
-    }, [isOpen]);
 
-    if (typeof window === 'undefined') return null;
-
-    return createPortal(
+    return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
@@ -115,8 +107,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSubmit, user, 
                     </motion.div>
                 </motion.div>
             )}
-        </AnimatePresence>,
-        document.body
+        </AnimatePresence>
     );
 };
 

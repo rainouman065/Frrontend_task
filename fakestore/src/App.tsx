@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,27 +6,15 @@ import { setActiveTab } from './store/uiSlice';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 
-const lazyWithDebug = (name: string, importer: () => Promise<any>) =>
-  lazy(() =>
-    importer().then((mod: any) => {
-      if (import.meta.env.DEV) {
-        console.info(`[lazy] loaded: ${name}`);
-        window.dispatchEvent(new CustomEvent('lazy:loaded', { detail: { name, at: Date.now() } }));
-      }
-      return mod;
-    })
-  );
-
-const Books = lazyWithDebug('Books', () => import('./pages/Books'));
-const Authors = lazyWithDebug('Authors', () => import('./pages/Authors'));
-const Users = lazyWithDebug('Users', () => import('./pages/Users'));
-const Activities = lazyWithDebug('Activities', () => import('./pages/Activities'));
-const Gallery = lazyWithDebug('Gallery', () => import('./pages/Gallery'));
+const Books = lazy(() => import('./pages/Books'));
+const Authors = lazy(() => import('./pages/Authors'));
+const Users = lazy(() => import('./pages/Users'));
+const Activities = lazy(() => import('./pages/Activities'));
+const Gallery = lazy(() => import('./pages/Gallery'));
 
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [lazyDebug, setLazyDebug] = useState<string | null>(null);
 
   useEffect(() => {
     // Synchronize Redux state with current URL path
@@ -43,20 +31,6 @@ function App() {
     dispatch(setActiveTab(activeTab));
   }, [location, dispatch]);
 
-  useEffect(() => {
-    if (!import.meta.env.DEV) return;
-    let timeoutId: ReturnType<typeof setTimeout>;
-    const handler = (e: any) => {
-      setLazyDebug(e?.detail?.name || 'Unknown');
-      window.clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => setLazyDebug(null), 2000);
-    };
-    window.addEventListener('lazy:loaded', handler);
-    return () => {
-      window.removeEventListener('lazy:loaded', handler);
-      window.clearTimeout(timeoutId);
-    };
-  }, []);
   return (
     <div className={`min-h-screen bg-slate-50 transition-colors duration-300 font-sans`}>
       <Sidebar />
@@ -98,11 +72,6 @@ function App() {
           </Suspense>
         </main>
       </div>
-      {import.meta.env.DEV && lazyDebug && (
-        <div className="fixed bottom-4 right-4 z-[60] bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-xl shadow-lg">
-          Lazy loaded: {lazyDebug}
-        </div>
-      )}
     </div>
   );
 }

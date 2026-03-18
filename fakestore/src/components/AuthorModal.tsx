@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { X, Save, Edit3, Plus, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Author } from '../types';
@@ -18,15 +17,8 @@ const AuthorModal: React.FC<AuthorModalProps> = ({ isOpen, onClose, onSubmit, au
         author || { firstName: '', lastName: '', idBook: 0 }
     );
 
-    useEffect(() => {
-        if (!isOpen) return;
-        document.body.classList.add('overflow-hidden');
-        return () => document.body.classList.remove('overflow-hidden');
-    }, [isOpen]);
 
-    if (typeof window === 'undefined') return null;
-
-    return createPortal(
+    return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
@@ -41,6 +33,7 @@ const AuthorModal: React.FC<AuthorModalProps> = ({ isOpen, onClose, onSubmit, au
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.95, y: 20, opacity: 0 }}
                         transition={{ type: "spring", duration: 0.4, bounce: 0.3 }}
+           
                         className="bg-white w-full max-w-sm rounded-[24px] shadow-2xl border border-slate-200/60 overflow-hidden transform max-h-[90vh] flex flex-col"
                     >
                         {/* Header */}
@@ -121,8 +114,7 @@ const AuthorModal: React.FC<AuthorModalProps> = ({ isOpen, onClose, onSubmit, au
                     </motion.div>
                 </motion.div>
             )}
-        </AnimatePresence>,
-        document.body
+        </AnimatePresence>
     );
 };
 

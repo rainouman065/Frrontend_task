@@ -6,7 +6,7 @@ import { Book, Users, UserCheck, Activity, Image, LayoutDashboard, ChevronRight,
 
 const Sidebar = () => {
     const dispatch = useDispatch();
-    const sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
+    const sidebarOpen = useSelector((state: any) => state.ui.sidebarOpen);
 
     const menuItems = [
         { name: 'Books', icon: <Book size={20} />, path: '/books' },
@@ -16,7 +16,7 @@ const Sidebar = () => {
         { name: 'Gallery', icon: <Image size={20} />, path: '/gallery' },
     ];
 
-    const handleNavClick = (name) => {
+    const handleNavClick = (name: string) => {
         dispatch(setActiveTab(name));
         dispatch(closeSidebar());
     };
