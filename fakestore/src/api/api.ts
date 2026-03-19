@@ -10,13 +10,7 @@ const apiClient = axios.create({
     },
 });
 
-interface RequestArgs {
-    url: string;
-    method?: Method;
-    data?: any;
-    params?: any;
-    headers?: any;
-}
+import { RequestArgs, CommonMutationOptions } from '../types';
 
 export const request = async ({ url, method = 'GET', data, params, headers }: RequestArgs) => {
     const response = await apiClient.request({
@@ -28,11 +22,6 @@ export const request = async ({ url, method = 'GET', data, params, headers }: Re
     });
     return response.data;
 };
-
-interface CommonMutationOptions<TData, TVariables, TContext> 
-    extends Omit<UseMutationOptions<TData, Error, TVariables, TContext>, 'mutationFn'> {
-    queryKeyToInvalidate?: any[];
-}
 
 export const useCommonMutation = <TData = any, TVariables = any, TContext = unknown>(
     url: string | ((payload: TVariables) => string),

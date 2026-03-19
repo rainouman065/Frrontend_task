@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { X, Save, Edit3, Trash2, Plus, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Book } from '../types';
+import { Book, BaseModalProps } from '../types';
 
-interface BookModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSubmit: (book: Partial<Book>) => void;
+interface BookModalProps extends BaseModalProps<Book> {
     book?: Book | null;
-    isEdit: boolean;
-    isLoading: boolean;
 }
 
 const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, onSubmit, book, isEdit, isLoading }) => {

@@ -5,7 +5,9 @@ import React from 'react';
  * Props:
  *  - table : TanStack Table instance
  */
-const TablePagination = ({ table }) => {
+import { TablePaginationProps } from '../types';
+
+const TablePagination = <T extends unknown>({ table }: TablePaginationProps<T>) => {
     return (
         <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-t border-slate-100">
             {/* Left: Page Info + Page Size */}

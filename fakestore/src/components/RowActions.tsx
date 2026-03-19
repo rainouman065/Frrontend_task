@@ -7,7 +7,9 @@ import { Edit3, Trash2 } from 'lucide-react';
  *  - onEdit   : fn — called when Edit button is clicked
  *  - onDelete : fn — called when Delete button is clicked
  */
-const RowActions = ({ onEdit, onDelete }) => {
+import { RowActionsProps } from '../types';
+
+const RowActions: React.FC<RowActionsProps> = ({ onEdit, onDelete }) => {
     return (
         <div className="flex justify-end gap-2">
             <button

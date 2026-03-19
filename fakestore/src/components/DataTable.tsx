@@ -3,10 +3,7 @@ import { flexRender, Table } from '@tanstack/react-table';
 import { ChevronUp, ChevronDown, ChevronsUpDown } from 'lucide-react';
 import TablePagination from './TablePagination';
 
-interface DataTableProps<T> {
-    table: Table<T>;
-    centeredColumns?: string[];
-}
+import { DataTableProps } from '../types';
 
 const DataTable = <T extends unknown>({ table, centeredColumns = ['status'] }: DataTableProps<T>) => {
     return (

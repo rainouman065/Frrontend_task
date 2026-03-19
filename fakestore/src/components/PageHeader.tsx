@@ -1,16 +1,7 @@
 import React from 'react';
 import { Search, Plus, Loader2 } from 'lucide-react';
 
-interface PageHeaderProps {
-    title: string;
-    subtitle?: string;
-    searchValue: string;
-    onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    searchPlaceholder?: string;
-    onAdd: () => void;
-    addLabel?: string;
-    isAdding?: boolean;
-}
+import { PageHeaderProps } from '../types';
 
 const PageHeader: React.FC<PageHeaderProps> = ({
     title,

@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { X, Save, Edit3, Plus, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Author } from '../types';
+import { Author, BaseModalProps } from '../types';
 
-interface AuthorModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSubmit: (author: Partial<Author>) => void;
+interface AuthorModalProps extends BaseModalProps<Author> {
     author?: Author | null;
-    isEdit: boolean;
-    isLoading: boolean;
 }
 
 const AuthorModal: React.FC<AuthorModalProps> = ({ isOpen, onClose, onSubmit, author, isEdit, isLoading }) => {

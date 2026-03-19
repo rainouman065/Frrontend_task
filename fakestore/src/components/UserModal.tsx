@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { X, Save, Edit3, Plus, User as UserIcon, Key, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User } from '../types';
+import { User, BaseModalProps } from '../types';
 
-interface UserModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSubmit: (user: Partial<User>) => void;
+interface UserModalProps extends BaseModalProps<User> {
     user?: User | null;
-    isEdit: boolean;
-    isLoading: boolean;
 }
 
 const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSubmit, user, isEdit, isLoading }) => {
