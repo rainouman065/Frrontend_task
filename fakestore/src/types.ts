@@ -48,7 +48,10 @@ export interface RequestArgs {
 }
 
 export interface CommonMutationOptions<TData, TVariables, TContext>
-    extends Omit<UseMutationOptions<TData, Error, TVariables, TContext>, 'mutationFn'> {
+    extends Omit<UseMutationOptions<TData, Error, TVariables, TContext>, 'mutationFn' | 'onSuccess' | 'onError' | 'onSettled'> {
+    onSuccess?: (data: TData, variables: TVariables, context: TContext) => void | Promise<unknown>;
+    onError?: (error: Error, variables: TVariables, context: TContext | undefined) => void | Promise<unknown>;
+    onSettled?: (data: TData | undefined, error: Error | null, variables: TVariables, context: TContext | undefined) => void | Promise<unknown>;
     queryKeyToInvalidate?: any[];
 }
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface ModalContextType {
@@ -18,17 +18,6 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const hideModal = useCallback(() => {
         setModalContent(null);
     }, []);
-
-    useEffect(() => {
-        if (modalContent) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [modalContent]);
 
     return (
         <ModalContext.Provider value={{ showModal, hideModal }}>
